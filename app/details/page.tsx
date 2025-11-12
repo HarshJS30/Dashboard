@@ -3,8 +3,9 @@
 import "../globals.css";
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
-export default function DetailsPage() {
+function DetailsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [data, setData] = useState<any[]>([]);
@@ -91,5 +92,13 @@ export default function DetailsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DetailsPage() {
+  return (
+    <Suspense fallback={<div className="no-mesh"><div className="details-container"><p>Loading...</p></div></div>}>
+      <DetailsContent />
+    </Suspense>
   );
 }
